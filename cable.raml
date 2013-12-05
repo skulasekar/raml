@@ -1,0 +1,366 @@
+#%RAML 0.8
+title: Cable API
+baseUri: http://identitygraph.cia.cablelabs.com/{version}
+version: v0
+schemas:
+- user: |
+      {  "$schema": "http://json-schema.org/draft-04/schema",
+         "title": "User",
+         "description": "A person or organization that uses products and services from the enterprise (external), or an operator working on management systems in the service provider environment (internal). This is modeled as a Party playing the role of User. A User is a type of PartyRole.",
+         "type": "object",
+         "properties": {
+           "self": {
+             "type": "object"
+             "properties": {
+               "href": { "type": "string"},
+               "rel": {"type": "string"},
+               "title": {"type": "string"}
+             },
+             "required": ["href"]
+           },
+           "id": {
+            "description": "Unique identifier for the user.",
+            "type": "string"
+           },
+           "name": {
+            "description": "An optional attribute used to define a specific name of the PartyRole in order to provide further context for the role (e.g., Williams Household).",
+            "type": "string"
+           },
+           "status": {
+            "description": "PartyRole status. Used to track the lifecycle status, e.g. existing, prospective or former customers. Dependent on the PartyRoleType",
+            "type": "string"
+           },
+           "valid-for": {
+            "description": "The time period for which the PartyRole is valid.",
+            "type": "object",
+            "properties": {
+              "startDateTime": {"type": "dateTime"},
+              "endDateTime": {"type": "dateTime"}
+            }
+           },
+           "user-credentials": {
+            "description": "Credentials for the user.",
+            "type": "array",
+            "items": {
+              "title": "UserCredential",
+              "type": "object",
+              "properties": {
+                "userCredentialId": {"type": "string"},
+                "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                }
+              }
+            }
+           },
+           "party": {
+            "description": "The Party (Individual or Organization) that plays the role of User.",
+            "title": Party
+            "type": "object",
+            "properties": {
+              "partyId": {"type": "string"},
+              "link": {
+                "type": "object"
+                "properties":
+                  {
+                    "href": { "type": "string"},
+                    "rel": {"type": "string"},
+                    "title": {"type": "string"}
+                  },
+                  "required": ["href"]
+              }
+            }
+           },
+           "email-address": {
+            "description": "The primary email address for the user.",
+            "type": "object",
+            "properties": {
+              "email-address": {"type": "string"},
+              "category": {"type": "string"},
+              "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                }
+            }
+           },
+           "phone-number": {
+            "description": "The primary phone number for the user.",
+            "type": "object",
+            "properties": {
+              "number": {"type": "string"},
+              "extension": {"type": "string"},
+              "category": {"type": "string"},
+              "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                }
+            }
+           },
+           "postal-address": {
+            "description": "The primary postal address for the user.",
+            "type": "object",
+            "properties": {
+              "address-line1": {"type": "string"},
+              "address-line2": {"type": "string"},
+              "locality": {"type": "string"},
+              "state-province": {"type": "string"},
+              "country": {"type": "string"},
+              "postcode": {"type": "string"},
+              "category": {"type": "string"},
+              "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                }
+            }
+           },
+           "email-addresses": {
+            "description": "Email addresses for the user.",
+            "type": "array",
+            "items": {
+              "title": "EmailContact",
+              "type": "object",
+              "properties": {
+                "contact-medium-id": {"type": "string"},
+                "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                }
+              }
+            }
+           },
+           "phone-numbers": {
+            "description": "Phone numbers for the user.",
+            "type": "array",
+            "items": {
+              "title": "TelephoneNumber",
+              "type": "object",
+              "properties": {
+                "contactMediumId": {"type": "string"},
+                "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                }
+              }
+            }
+           },
+           "postal-addresses": {
+            "description": "Postal addresses for the user.",
+            "type": "array",
+            "items": {
+              "title": "PostalContact",
+              "type": "object",
+              "properties": {
+                "contactMediumId": {"type": "string"},
+                "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                }
+              }
+            }
+           },
+           "userAccountAssignments": {
+            "description": "Each UserAccount must be assigned to one or more UserAccountAssignments.",
+            "type": "array",
+            "items": {
+              "title": "UserAccountAssignment",
+              "type": "object",
+              "properties": {
+                "userAccountAssignmentId": {"type": "string"},
+                "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                }
+              }
+            }
+           },
+           "associations": {
+             "description": "Associations that the user has.",
+             "type": "array",
+             "items": {
+               "title": "PartyRoleAssociation",
+               "type": "object",
+               "properties": {
+                 "id": {"type": "string"},
+                 "valid-for": {
+                   "description": "The time period for which the association is valid.",
+                   "type": "object",
+                   "properties": {
+                     "startDateTime": {"type": "dateTime"},
+                     "endDateTime": {"type": "dateTime"}
+                   }
+                 },
+                 "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                 }
+               }
+             }
+           },
+           "preferences": {
+              "description": "",
+              "type": "array",
+              "items": {
+                "title": "Preference",
+                "type": "object",
+                "properties": {
+                  "preferenceId": {"type": "string"},
+                  "link": {
+                  "type": "object"
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                  }
+                }
+              }
+            },
+            "resources": {
+              "description": "Each PartyRole may be the owner of one or more Resources.",
+              "type": "array",
+              "items": {
+                "title": "Resource",
+                "type": "object",
+                "properties": {
+                  "objectId": {"type": "string"},
+                  "link": {
+                  "type": "object",
+                  "properties":
+                    {
+                      "href": { "type": "string"},
+                      "rel": {"type": "string"},
+                      "title": {"type": "string"}
+                    },
+                    "required": ["href"]
+                }
+                }
+              }
+            }
+         },
+         "required": ["userId","party"]
+      }
+resourceTypes:
+  - base:
+      get?:
+        responses: &standardResponses
+          200: 
+            description: OK
+      put?:
+        responses: *standardResponses
+      post?:
+        responses: *standardResponses
+      delete?:
+        responses: *standardResponses
+  - collection:
+      type: base
+      usage: This resourceType should be used for any collection of items
+      description: The collection of <<resourcePathName>>
+      get:
+        description: Get all <<resourcePathName>>, optionally filtered
+        responses:
+          200:
+            body:
+              application/json:
+                schema: <<schema>>
+      post:
+        description: Create a new <<resourcePathName | !singularize>>
+        body:
+          application/json:
+            schema: <<schema>>
+        responses:
+          200:
+            body:
+              application/json:
+                schema: <<schema>>
+  - member:
+      type: base
+      usage: This resourceType should be used for any item of a collection
+      get:
+        description: Get a <<resourcePathName | !singularize>>, optionally filtered
+        responses:
+          200:
+            body:
+              application/json:
+                schema: <<schema>>
+      post:
+        description: Create a new <<resourcePathName | !singularize>>
+        body:
+          application/json:
+            schema: <<schema>>
+        responses:
+          200:
+            body:
+              application/json:
+                schema: <<schema>>
+      put:
+        description: Update a <<resourcePathName | !singularize>>
+        body:
+          application/json:
+            schema: <<schema>>
+        responses:
+          200:
+            body:
+              application/json:
+                schema: <<schema>>
+      delete:
+        description: Delete a <<resourcePathName | !singularize>>
+/users:
+  type: { collection: { schema : user } }
+  /{id}:
+    type: { member: { schema : user } }
